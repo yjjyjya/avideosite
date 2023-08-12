@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>练习视频网站</title>
+    <meta name="description" content="可以观看一些动漫视频" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="" />
+    <meta name="referrer" content="no-referrer" />
+    <link rel="icon" href="./static/picture/funnyvideo.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="./static/picture/funnyvideo.png" type="image/x-icon" />
+    <!-- <link href="./static/css/....css" rel="stylesheet" /> -->
+    <!-- <script src="https://....js"></script> -->
+</head>
+
+<body>
+    <div class="header_banner" style="height: 100px; background-color: deepskyblue;">
+        <div class="center_search_container" style="padding: 20px 0 0 0; margin: 0px auto 0px auto; width: 300px;">
+            <div class="search_input" style="display: inline-block; margin-right: 8px;">
+                <input title="请输入搜索内容" type="text" style="width: 230px; height: 20px; border-radius: 5px;">
+            </div>
+            <div class="search_btn" style="display: inline-block;">
+                <img src="./static/picture/search-btn.png" alt="None" style="width: 15px; height: 15px;">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="animation_container" style="padding: 5px 0px 10px 10px;">
+        <h2 id="section1" class="section_title">动画区</h2>
+        <div id="anima" class="anima_row_container" style="margin: 0px auto 20px auto; width: 1100px;"></div>
+    </div>
+    <script>
+        var datalist = {{ datalist | tojson | safe }};
+        // alert(datalist[0]);
+        // id、类型、视频名、日期、路径
+        // var rowcont = document.getElementsByClassName('anima_row_container')[0];
+        var rowcont = document.getElementById('anima');
+        var sectiontitle = document.getElementById('section1').textContent;
+        var cnt = 0;    //统计展示的数量，控制最多展示两排
+        for(var i=0; i<datalist.length; i++){
+            if(datalist[i][1] != sectiontitle) continue;
+            const feed_card = document.createElement('div');
+            feed_card.style = "display: inline-block; margin-right: 5px; margin-bottom: 10px; width: 350px;";
+            const video_img = document.createElement('div');
+            video_img.style = "margin: 0px 5% 0px 5%;";
+            const a = document.createElement('a');
+            a.href = "/video";
+            const img = document.createElement('img');
+            img.src = datalist[i][4];
+            img.style = "width: 100%; height: auto; border-radius: 10px 10px 0px 0px; display: block;";
+            const video_info = document.createElement('div');
+            video_info.style = "background-color: gainsboro; margin: 0px 5% 0px 5%; border-radius: 0px 0px 10px 10px;";
+            video_info.className = 'video_info';
+            const video_name = document.createElement('p');
+            video_name.style = "margin: 1px 8px 1px 8px; width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis";
+            video_name.textContent = datalist[i][2];
+            const tooltiptext = document.createElement('span');
+            tooltiptext.className = 'tooltiptext';
+            tooltiptext.textContent = datalist[i][2];
+            tooltiptext.style = "visibility: hidden; background-color: white; color: black; text-align: center; position: absolute; padding: 5px 5px 5px 5px; border-radius: 5px; border-style: solid; border-width: 2px; border-color: black;";
+            const video_time = document.createElement('p');
+            video_time.style = "margin: 1px 8px 0px 8px;";
+            video_time.textContent = datalist[i][3];
+
+            video_info.appendChild(video_name);
+            video_info.appendChild(tooltiptext);
+            video_info.appendChild(video_time);
+            video_img.appendChild(a);
+            a.append(img);
+            feed_card.appendChild(video_img);
+            feed_card.appendChild(video_info);
+            rowcont.appendChild(feed_card);
+
+            var handleHover = () => {
+                tooltiptext.style = "visibility: visible; background-color: white; color: black; text-align: center; position: absolute; padding: 5px 5px 5px 5px; border-radius: 5px; border-style: solid; border-width: 2px; border-color: black;";
+            };
+            var handleLeave = () => {
+                tooltiptext.style = "visibility: hidden; position: absolute;";
+            };
+            video_info.addEventListener('mouseover', handleHover);
+            video_info.addEventListener('mouseout', handleLeave);
+
+            cnt ++;
+            if(cnt == 6){
+                break;
+            }
+        }
+    </script>
+
+
+    <div class="learningsource_container" style="background-color: deepskyblue; padding: 5px 0px 10px 10px;">
+        <h2 id="section2" class="section_title">学习资源区</h2>
+        <div id="study" class="row_container" style="margin: 0px auto 20px auto; width: 1100px;"></div>
+    </div>
+    <script>
+        var datalist = {{ datalist | tojson | safe }};
+        // id、类型、视频名、日期、图片路径、视频路径
+        // var rowcont = document.getElementsByClassName('')[0];
+        var rowcont = document.getElementById('study');
+        var sectiontitle = document.getElementById('section2').textContent;
+        for(var i=0; i<datalist.length; i++){
+            if(datalist[i][1] != sectiontitle) continue;
+            const feed_card = document.createElement('div');
+            feed_card.style = "display: inline-block; margin-right: 5px; margin-bottom: 10px; width: 350px;";
+            const video_img = document.createElement('div');
+            video_img.style = "margin: 0px 5% 0px 5%;";
+            const a = document.createElement('a');
+            a.href = "/video";
+            const img = document.createElement('img');
+            img.src = datalist[i][4];
+            img.style = "width: 100%; height: auto; border-radius: 10px 10px 0px 0px; display: block;";
+            const video_info = document.createElement('div');
+            video_info.style = "background-color: gainsboro; margin: 0px 5% 0px 5%; border-radius: 0px 0px 10px 10px;";
+            video_info.className = 'video_info';
+            const video_name = document.createElement('p');
+            video_name.style = "margin: 1px 8px 1px 8px; width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis";
+            video_name.textContent = datalist[i][2];
+            const tooltiptext = document.createElement('span');
+            tooltiptext.className = 'tooltiptext';
+            tooltiptext.textContent = datalist[i][2];
+            tooltiptext.style = "visibility: hidden; background-color: white; color: black; text-align: center; position: absolute; padding: 5px 5px 5px 5px; border-radius: 5px; border-style: solid; border-width: 2px; border-color: black;";
+            const video_time = document.createElement('p');
+            video_time.style = "margin: 1px 8px 0px 8px;";
+            video_time.textContent = datalist[i][3];
+
+            video_info.appendChild(video_name);
+            video_info.appendChild(tooltiptext);
+            video_info.appendChild(video_time);
+            video_img.appendChild(a);
+            a.append(img);
+            feed_card.appendChild(video_img);
+            feed_card.appendChild(video_info);
+            rowcont.appendChild(feed_card);
+
+            var handleHover = () => {
+                tooltiptext.style = "visibility: visible; background-color: white; color: black; text-align: center; position: absolute; padding: 5px 5px 5px 5px; border-radius: 5px; border-style: solid; border-width: 2px; border-color: black;";
+            };
+            var handleLeave = () => {
+                tooltiptext.style = "visibility: hidden; position: absolute;";
+            };
+            video_info.addEventListener('mouseover', handleHover);
+            video_info.addEventListener('mouseout', handleLeave);
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+    <div class="recommend_container" style="padding: 5px 0px 10px 10px;">
+        <h2 class="section_title">推荐区</h2>
+        <div class="row_container" style="margin: 0px auto 20px auto; width: 1100px;">
+            <div class="feed_card" style="display: inline-block; margin-right: 5px; width: 350px;">
+                <div class="video_img" style="margin: 0px 5% 0px 5%;">
+                    <img src="./static/test.webp" alt="None" style="width: 100%; height: auto; border-radius: 10px 10px 0px 0px; display: block;">
+                </div>
+                <div class="video_info" style="background-color: gainsboro; margin: 0px 5% 0px 5%; border-radius: 0px 0px 10px 10px;">
+                    <p class="video_name" style="margin: 1px 8px 1px 8px; width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">杭州168元广式早茶自助,一笼接一笼香迷糊了!</p>
+                    <span class="tooltiptext">杭州168元广式早茶自助,一笼接一笼香迷糊了!</span>
+                    <p class="video_time" style="margin: 1px 8px 0px 8px;">7-28</p>
+                </div>
+            </div>
+
+            <div class="feed_card" style="display: inline-block; margin-right: 5px; width: 350px;">
+                <div class="video_img" style="margin: 0px 5% 0px 5%;">
+                    <img src="./static/test.webp" alt="None" style="width: 100%; height: auto; border-radius: 10px 10px 0px 0px; display: block;">
+                </div>
+                <div class="video_info" style="background-color: gainsboro; margin: 0px 5% 0px 5%; border-radius: 0px 0px 10px 10px;">
+                    <p class="video_name" style="margin: 1px 8px 1px 8px; width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">我的目标是驱散所有黑暗~</p>
+                    <span class="tooltiptext">我的目标是驱散所有黑暗~</span>
+                    <p class="video_time" style="margin: 1px 8px 0px 8px;">8-4</p>
+                </div>
+            </div>
+
+            <div class="feed_card" style="display: inline-block; margin-right: 5px; width: 350px;">
+                <div class="video_img" style="margin: 0px 5% 0px 5%;">
+                    <img src="./static/test.webp" alt="None" style="width: 100%; height: auto; border-radius: 10px 10px 0px 0px; display: block;">
+                </div>
+                <div class="video_info" style="background-color: gainsboro; margin: 0px 5% 0px 5%; border-radius: 0px 0px 10px 10px;">
+                    <p class="video_name" style="margin: 1px 8px 1px 8px; width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">瓦坎达放到现实，是什么样的存在？【司徒之脑洞】</p>
+                    <span class="tooltiptext">瓦坎达放到现实，是什么样的存在？【司徒之脑洞】</span>
+                    <p class="video_time" style="margin: 1px 8px 0px 8px;">8-6</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="charts_container" style="background-color: deepskyblue; padding: 5px 0px 10px 10px;">
+        <h2 class="section_title">排行榜</h2>
+        <div style="text-align: center;">
+            <p>1、其实，吾乃最强</p>
+            <p>2、僵尸100</p>
+            <p>3、hellsing</p>
+        </div>
+    </div>
+
+    <footer style="height: 70px; text-align: center; background-color: darkgray;">
+        <p>Posted by: test</p>
+        <p>Contact information: 
+            <a href="mailto:someone@example.com">someone@example.com</a>.
+        </p>
+    </footer>
+</body>
+
+</html>

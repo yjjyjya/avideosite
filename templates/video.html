@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>练习视频网站</title>
+    <link rel="icon" href="./static/picture/funnyvideo.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="./static/picture/funnyvideo.png" type="image/x-icon" />
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdn.staticfile.org/dplayer/1.26.0/DPlayer.min.js"></script>
+</head>
+
+<body onload="init()">
+    <div class="header_banner" style="height: 100px; background-color: deepskyblue;">
+        <div class="return_home_container" style="padding-top: 10px; margin: 0px auto 0px auto; width: 200px;">
+            <div class="button" style="width: 80px; height: 80px; margin: 0px auto 0px auto;">
+                <a href="/">
+                    <img src="./static/picture/home-btn.png" alt="None" title="返回首页" style="width: 80px; height: 80px;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="video_display">
+        <div class="video_container" style="margin: 20px auto 0px auto; width: 800px;">
+        </div>
+    </div>
+
+    <div class="video_describe">
+        <div class="video_desc_container" style="margin: 20px auto 0px auto; width: 800px;">
+            <p class="title" style="font-size: medium;">标题</p>
+            <p class="describe" style="font-size: small;">内容概要...</p>
+        </div>
+    </div>
+
+
+    <script>
+        var datalist = {{ datalist | tojson | safe }};
+        var playdiv = document.createElement('div');
+        playdiv.id = 'videoPlayer';
+        var video_container = document.getElementsByClassName('video_container')[0];
+        video_container.appendChild(playdiv);
+        function init() {
+            const dp = new DPlayer({
+                element: document.getElementById('videoPlayer'),
+                video: {
+                    url: "https://gcalic.v.myalicdn.com/gc/hsxkssqdzrqj_1/index.m3u8?contentid=2820180516001",
+                    // url: './static/video/20230811/0000_adc25796f822/index.m3u8',
+                    type: 'customHls',
+                    customType: {
+                        customHls: function (video, player) {
+                            const hls = new Hls();
+                            hls.loadSource(video.src);
+                            hls.attachMedia(video);
+                        },
+                    },
+                },
+            });
+        }
+    </script>
+</body>
+
+</html>
+
+
+<!-- 测试 -->
+<!-- #EXTINF:-1 ,张家界迷魂台
+https://gccncc.v.wscdns.com/gc/zjjmht_1/index.m3u8?contentid=2820180516001 -->
+<!-- #EXTINF:-1 ,凤凰古城
+https://gccncc.v.wscdns.com/gc/fhgcdgm_1/index.m3u8?contentid=2820180516001 -->
+<!-- #EXTINF:-1 ,张家界大峡谷
+https://gcalic.v.myalicdn.com/gc/hsxkssqdzrqj_1/index.m3u8?contentid=2820180516001 -->
