@@ -31,7 +31,7 @@ class Database():
             (default, '学习资源区', '我的目标是驱散所有黑暗~', '8-4', './static/picture/test.webp', 'None'),
             (default, '学习资源区', '张家界迷魂台', '直播', './static/picture/test.webp', 'https://gccncc.v.wscdns.com/gc/zjjmht_1/index.m3u8'),
             (default, '学习资源区', '张家界大峡谷', '直播', './static/picture/test.webp', 'https://gcalic.v.myalicdn.com/gc/hsxkssqdzrqj_1/index.m3u8'),
-            (default, '学习资源区', '凤凰古城', '直播', './static/picture/test.webp', 'https://gccncc.v.wscdns.com/gc/fhgcdgm_1/index.m3u8'),
+            (default, '学习资源区', '凤凰古城', '直播', './static/picture/test.webp', 'http://124.232.231.246:6610/000000001001/201600010006/index.m3u8'),
             (default, '动画区', '打工吧！魔王大人', '-', './static/picture/打工吧！魔王大人.webp', './static/video/20230811/0000_adc25796f822/index.m3u8'),
             (default, '动画区', '鬼灭之刃 刀匠村篇', '-', './static/picture/鬼灭之刃 刀匠村篇.webp', './static/video/20230811/0000_adc25796f822/index.m3u8'),
             (default, '动画区', '博人传', '-', './static/picture/博人传.webp', './static/video/20230811/0000_adc25796f822/index.m3u8'),
